@@ -22,3 +22,10 @@ $router->get('/authors/{id}',  ['uses'=> 'AuthorController@ShowOneAuthor']);
 $router->post('/authors', ['uses' => 'AuthorController@create']);
 $router->delete('authors/{id}', ['uses' => 'AuthorController@delete']);
 $router->put('authors/{id}', ['uses' => 'AuthorController@edit']);
+// API route group
+$router->group(['prefix' => 'api'], function () use ($router) {
+    // Matches "/api/register
+    $router->post('register', 'AuthController@register');
+  // Matches "/api/login
+  $router->post('login', 'AuthController@login');
+ });
