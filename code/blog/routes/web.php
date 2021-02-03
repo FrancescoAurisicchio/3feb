@@ -16,3 +16,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+//author
+$router->get('/authors', ['uses' => 'AuthorController@ShowAllAuhtor']);
+$router->get('/authors/{id}',  ['uses'=> 'AuthorController@ShowOneAuthor']);
+$router->post('/authors', ['uses' => 'AuthorController@create']);
+$router->delete('authors/{id}', ['uses' => 'AuthorController@delete']);
+$router->put('authors/{id}', ['uses' => 'AuthorController@edit']);
