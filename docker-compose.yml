@@ -2,7 +2,7 @@ version: '2'
 services:
   myproject:
     build: ./ 
-    container_name: Laravel-Web
+    container_name: Laravel
     restart: always
     volumes:
       - ./code:/var/www/html
@@ -11,7 +11,7 @@ services:
       - 8001:8000
   db:
       image: mysql:8.0
-      container_name: db-laravel
+      container_name: db-lar
       environment:
         MYSQL_ROOT_PASSWORD: pass
         MYSQL_DATABASE: laravel-db
@@ -21,7 +21,7 @@ services:
         - "6034:3306"
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
-      container_name: pma-laravel
+      container_name: pma-lar
       links:
         - db
       environment:
