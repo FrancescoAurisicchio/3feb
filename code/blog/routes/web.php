@@ -46,3 +46,4 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // Matches "/api/users
     $router->get('users', 'UserController@allUsers');
 });
+Route::get('email', 'EmailController@sendEmail');
