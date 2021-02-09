@@ -114,3 +114,5 @@ $app->router->group([
 });
 
 return $app;
+$app->register(Illuminate\Redis\RedisServiceProvider::class); 
+$app->configure('database');

@@ -47,3 +47,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('users', 'UserController@allUsers');
 });
 Route::get('email', 'EmailController@sendEmail');
+$router->get('Job',['uses'=>'HelloController@HelloControl']);
+$router->get('Jobb',  ['uses' => 'ExampleController@showAllUser']);

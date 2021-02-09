@@ -7,8 +7,10 @@ services:
     volumes:
       - ./code:/var/www/html
     ports:
-      - 80:80
       - 8001:8000
+    networks:
+      - frontend
+
   db:
       image: mysql:8.0
       container_name: db-lar
@@ -19,6 +21,9 @@ services:
         MYSQL_PASSWORD: root
       ports:
         - "6034:3306"
+      networks:
+        - frontend
+
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
       container_name: pma-lar
@@ -31,3 +36,46 @@ services:
       restart: always
       ports:
         - 8081:80
+      networks:
+        - frontend
+  queue_worker: 
+    build: ./
+    container_name: queue_worker
+    restart: always
+    volumes:  
+      - ./code:/var/www/html
+    ports:
+      - 8020:8000
+    networks:
+      - backend
+
+      
+
+  ### Shared services
+
+  redis:
+    image: 'docker.io/bitnami/redis:6.0-debian-10'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    networks:
+      - frontend
+      - backend
+
+      
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.21.0.0/16
+  backend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.22.0.0/16
